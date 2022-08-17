@@ -13,7 +13,7 @@ public class CityDto {
     private Integer cityId;
 
     private String cityName;
-    private List<WeatherDto> weatherDtos;
+    private List<WeatherOriginDto> weatherOriginDtos;
 
     public String getCityName() {
         return cityName;
@@ -31,11 +31,11 @@ public class CityDto {
         this.cityId = cityId;
     }
 
-    public List<WeatherDto> getWeatherDtos() {
-        return weatherDtos;
+    public List<WeatherOriginDto> getWeatherOriginDtos() {
+        return weatherOriginDtos;
     }
 
-    public void setWeatherDtos(List<WeatherDto> weatherDtos) {
-        this.weatherDtos = weatherDtos;
+    public void setWeatherOriginDtos(List<WeatherOriginDto> weatherOriginDtos) {
+        this.weatherOriginDtos = weatherOriginDtos;
     }
 }

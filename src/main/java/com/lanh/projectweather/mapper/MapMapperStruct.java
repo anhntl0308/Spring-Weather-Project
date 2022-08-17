@@ -2,6 +2,7 @@ package com.lanh.projectweather.mapper;
 
 import com.lanh.projectweather.dto.CityDto;
 import com.lanh.projectweather.dto.WeatherDto;
+import com.lanh.projectweather.dto.WeatherOriginDto;
 import com.lanh.projectweather.dto.WeatherTypeDto;
 import com.lanh.projectweather.entity.City;
 import com.lanh.projectweather.entity.Weather;
@@ -17,12 +18,14 @@ public interface MapMapperStruct {
 
     City cityDtoToCity(CityDto CityDto);
 
-    @Mapping(source = "weathers", target = "weatherDtos")
+    @Mapping(source = "weathers", target = "weatherOriginDtos")
     CityDto cityToCityDto(City city);
 
     List<CityDto> cityToListCityDto(List<City> cities);
 
     List<WeatherDto> weatherToListWeatherDto(List<Weather> weathers);
+
+    WeatherOriginDto weatherToWeatherOriginDto(Weather weather);
 
     @Mapping(source = "city", target = "cityDto")
     WeatherDto weatherToWeatherDto(Weather weather);
