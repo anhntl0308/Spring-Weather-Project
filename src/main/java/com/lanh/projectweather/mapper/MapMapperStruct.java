@@ -7,6 +7,7 @@ import com.lanh.projectweather.entity.City;
 import com.lanh.projectweather.entity.Weather;
 import com.lanh.projectweather.entity.WeatherType;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -16,12 +17,14 @@ public interface MapMapperStruct {
 
     City cityDtoToCity(CityDto CityDto);
 
+    @Mapping(source = "weathers", target = "weatherDtos")
     CityDto cityToCityDto(City city);
 
     List<CityDto> cityToListCityDto(List<City> cities);
 
     List<WeatherDto> weatherToListWeatherDto(List<Weather> weathers);
 
+    @Mapping(source = "city", target = "cityDto")
     WeatherDto weatherToWeatherDto(Weather weather);
 
     Weather weatherDtoToWeather(WeatherDto weatherDto);
