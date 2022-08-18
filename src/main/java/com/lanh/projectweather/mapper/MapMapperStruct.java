@@ -23,14 +23,18 @@ public interface MapMapperStruct {
 
     List<CityDto> cityToListCityDto(List<City> cities);
 
+
     List<WeatherDto> weatherToListWeatherDto(List<Weather> weathers);
-
+    @Mapping(source = "weatherType", target = "weatherTypeDto")
     WeatherOriginDto weatherToWeatherOriginDto(Weather weather);
-
     @Mapping(source = "city", target = "cityDto")
     WeatherDto weatherToWeatherDto(Weather weather);
 
     Weather weatherDtoToWeather(WeatherDto weatherDto);
 
     WeatherTypeDto weatherTypeToWeatherTypeDto(WeatherType weatherType);
+
+    WeatherType weatherTypeDtoToWeatherType(WeatherTypeDto weatherTypeDto);
+
+
 }

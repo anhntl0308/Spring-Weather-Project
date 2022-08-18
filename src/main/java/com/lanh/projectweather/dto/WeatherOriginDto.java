@@ -13,6 +13,7 @@ public class WeatherOriginDto {
     private int weatherTempMin;
     private Date weatherDate;
 
+    private WeatherTypeDto weatherTypeDto;
     public Integer getWeatherId() {
         return weatherId;
     }
@@ -51,5 +52,13 @@ public class WeatherOriginDto {
 
     public void setWeatherDate(Date weatherDate) {
         this.weatherDate = weatherDate;
+    }
+
+    public WeatherTypeDto getWeatherTypeDto() {
+        return weatherTypeDto;
+    }
+
+    public void setWeatherTypeDto(WeatherTypeDto weatherTypeDto) {
+        this.weatherTypeDto = weatherTypeDto;
     }
 }

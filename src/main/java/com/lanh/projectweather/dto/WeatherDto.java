@@ -11,7 +11,6 @@ public class WeatherDto {
 
     private Integer weatherId;
     private int weatherTemp;
-
     private int weatherTempMax;
     private int weatherTempMin;
     private Date weatherDate;
