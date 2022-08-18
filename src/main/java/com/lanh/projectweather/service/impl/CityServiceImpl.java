@@ -20,9 +20,9 @@ public class CityServiceImpl implements CityService {
     private CityRepository cityRepository;
 
     @Override
-    public void save(City entity) {
+    public City save(City entity) {
 
-        cityRepository.save(entity);
+        return cityRepository.save(entity);
     }
 
     @Override

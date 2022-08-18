@@ -1,9 +1,12 @@
 package com.lanh.projectweather.service.impl;
 
+import com.lanh.projectweather.dto.weather.WeatherDto;
 import com.lanh.projectweather.entity.City;
 import com.lanh.projectweather.entity.Weather;
 import com.lanh.projectweather.exception.NotFoundException;
+import com.lanh.projectweather.repository.CityRepository;
 import com.lanh.projectweather.repository.WeatherRepository;
+import com.lanh.projectweather.repository.WeatherTypeRepository;
 import com.lanh.projectweather.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,17 +21,22 @@ import java.util.List;
 public class WeatherServiceImpl implements WeatherService {
     @Autowired
     WeatherRepository weatherRepository;
+    @Autowired
+    CityRepository cityRepository;
 
+    @Autowired
+    WeatherTypeRepository weatherTypeRepository;
     @Override
-    public void save(Weather entity) {
-        weatherRepository.save(entity);
+    public Weather save(Weather entity) {
+
+        return weatherRepository.save(entity);
     }
 
     @Override
     public Weather getById(Integer id) {
         Weather weather = weatherRepository.findById(id).orElse(null);
-        if(weather == null) {
-            throw  new NotFoundException(("Weather khong ton tai"));
+        if (weather == null) {
+            throw new NotFoundException(("Weather khong ton tai"));
         }
         return weather;
     }
@@ -48,15 +56,26 @@ public class WeatherServiceImpl implements WeatherService {
         weatherRepository.deleteById(id);
     }
 
+
+
     @Override
-    public Page<Weather> findWeatherByCitAndAndWeatherType(Integer city, Integer type, Integer currentPage, Integer pageSize) {
-        Pageable pageable = PageRequest.of(currentPage - 1, pageSize);
-        Page<Weather> results =null;
-        if(city==null && type ==null){
-             results = weatherRepository.findAll(pageable);
-        }else{
-             results = weatherRepository.findWeatherByCity_CityIdAndAndWeatherType_WeatherTypeId(city, type, pageable);
+    public Page<Weather> findWeatherByCityOrWeatherType(Integer city, Integer type, Pageable pageable) {
+        Page<Weather> results = null;
+        if (city == null && type == null) {
+            results = weatherRepository.findAll(pageable);
+        } else if (city != null && type != null) {
+            results = weatherRepository.findWeatherByCity_CityIdAndWeatherType_WeatherTypeId(city, type, pageable);
+        } else {
+            results = weatherRepository.findWeatherByCity_CityIdOrOrWeatherType_WeatherTypeId(city, type, pageable);
         }
         return results;
+    }
+
+    @Override
+    public void checkValid(WeatherDto weatherDto) {
+        cityRepository.findById(weatherDto.getCityOriginDto().getCityId())
+                .orElseThrow(() -> new NotFoundException("Not Found City"));
+        weatherTypeRepository.findById(weatherDto.getWeatherTypeOriginDto().getWeatherTypeId())
+                .orElseThrow(() -> new NotFoundException("Not Found Weather Type"));
     }
 }

@@ -9,7 +9,7 @@ import java.util.List;
 
 
 public interface CityService {
-    void save(City entity);
+    City save(City entity);
 
     City getById(Integer id);
 

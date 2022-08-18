@@ -1,8 +1,16 @@
 package com.lanh.projectweather.entity;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
+@ToString
 @Table(name="cities")
 public class City {
     @Id
@@ -14,29 +22,8 @@ public class City {
     private String cityName;
 
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Weather> weathers;
 
-    public Integer getCityId() {
-        return cityId;
-    }
 
-    public void setCityId(Integer cityId) {
-        this.cityId = cityId;
-    }
-
-    public String getCityName() {
-        return cityName;
-    }
-
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
-    }
-
-    public List<Weather> getWeathers() {
-        return weathers;
-    }
-
-    public void setWeathers(List<Weather> weathers) {
-        this.weathers = weathers;
-    }
 }

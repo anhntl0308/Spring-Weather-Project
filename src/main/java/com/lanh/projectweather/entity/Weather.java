@@ -1,11 +1,15 @@
 package com.lanh.projectweather.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
+@Getter
+@Setter
+@ToString
 @Table(name="weathers")
 public class Weather {
     @Id
@@ -27,78 +31,12 @@ public class Weather {
 
     @ManyToOne
     @JoinColumn(name = "city_id")
+    @JsonBackReference
     private City city;
-
     @ManyToOne
-    @JoinColumn(name = "weatherType_id")
+    @JoinColumn(name = "weather_type_id")
+    @JsonBackReference
     private WeatherType weatherType;
 
-    public Integer getWeatherId() {
-        return weatherId;
-    }
 
-    public void setWeatherId(Integer weatherId) {
-        this.weatherId = weatherId;
-    }
-
-    public int getWeatherTemp() {
-        return weatherTemp;
-    }
-
-    public void setWeatherTemp(int weatherTemp) {
-        this.weatherTemp = weatherTemp;
-    }
-
-    public int getWeatherTempMax() {
-        return weatherTempMax;
-    }
-
-    public void setWeatherTempMax(int weatherTempMax) {
-        this.weatherTempMax = weatherTempMax;
-    }
-
-    public int getWeatherTempMin() {
-        return weatherTempMin;
-    }
-
-    public void setWeatherTempMin(int weatherTempMin) {
-        this.weatherTempMin = weatherTempMin;
-    }
-
-    public Date getWeatherDate() {
-        return weatherDate;
-    }
-
-    public void setWeatherDate(Date weatherDate) {
-        this.weatherDate = weatherDate;
-    }
-
-    public City getCity() {
-        return city;
-    }
-
-    public void setCity(City city) {
-        this.city = city;
-    }
-
-    public WeatherType getWeatherType() {
-        return weatherType;
-    }
-
-    public void setWeatherType(WeatherType weatherType) {
-        this.weatherType = weatherType;
-    }
-
-    @Override
-    public String toString() {
-        return "Weather{" +
-                "weatherId=" + weatherId +
-                ", weatherTemp=" + weatherTemp +
-                ", weatherTempMax=" + weatherTempMax +
-                ", weatherTempMin=" + weatherTempMin +
-                ", weatherDate=" + weatherDate +
-                ", city=" + city +
-                ", weatherType=" + weatherType +
-                '}';
-    }
 }

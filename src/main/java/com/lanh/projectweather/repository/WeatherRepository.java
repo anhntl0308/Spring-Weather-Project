@@ -8,8 +8,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface WeatherRepository extends JpaRepository<Weather, Integer> {
-//    @Query(value = "select weathers.*, cities.*, w from weathers LEFT JOIN cities on weathers.city_id = cities.city_id LEFT JOIN weather_types on weathers.weather_type_id = weather_types.weather_type_id\n" +
-//            "        wHERE( ( weathers.city_id = :city_id_pa ) and ( weathers.weather_type_id = :weather_id_pa ))", nativeQuery = true)
-    Page<Weather> findWeatherByCity_CityIdAndAndWeatherType_WeatherTypeId(Integer cityId,Integer weatherTypeId, Pageable pageable);
+    Page<Weather> findWeatherByCity_CityIdAndWeatherType_WeatherTypeId(Integer cityId,Integer weatherTypeId, Pageable pageable);
+    Page<Weather> findWeatherByCity_CityIdOrOrWeatherType_WeatherTypeId(Integer cityId,Integer weatherTypeId, Pageable pageable);
 
+//    @Query(value = "SELECT weathers.id, weathers.temp, weathers.temp_max, weathers.temp_min, weathers.date, weathers.city_id, weathers.weather_type_id FROM weather.weathers LEFT JOIN weather.cities on weathers.city_id = cities.city_id LEFT JOIN weather.weather_types on weathers.weather_type_id = weather_types.weather_type_id",nativeQuery = true)
+//    Page<Weather> findWeatherByCityOrWeatherType(@Param("city") Integer city, @Param("type")Integer type, Pageable pageable);
 }

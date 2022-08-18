@@ -1,7 +1,5 @@
 package com.lanh.projectweather.model;
 
-import com.lanh.projectweather.dto.CityDto;
-
 import java.util.List;
 
 
