@@ -73,9 +73,9 @@ public class WeatherServiceImpl implements WeatherService {
 
     @Override
     public void checkValid(WeatherDto weatherDto) {
-        cityRepository.findById(weatherDto.getCityOriginDto().getCityId())
-                .orElseThrow(() -> new NotFoundException("Not Found City"));
-        weatherTypeRepository.findById(weatherDto.getWeatherTypeOriginDto().getWeatherTypeId())
-                .orElseThrow(() -> new NotFoundException("Not Found Weather Type"));
+//        cityRepository.findById(weatherDto.getCityOriginDto())
+//                .orElseThrow(() -> new NotFoundException("Not Found City"));
+//        weatherTypeRepository.findById(weatherDto.getWeatherTypeOriginDto().getWeatherTypeId())
+//                .orElseThrow(() -> new NotFoundException("Not Found Weather Type"));
     }
 }

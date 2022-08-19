@@ -1,6 +1,6 @@
 package com.lanh.projectweather.dto.weatherType;
 
-import com.lanh.projectweather.dto.weather.WeatherOriginNoTypeDto;
+import com.lanh.projectweather.dto.weather.WeatherDto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -14,6 +14,6 @@ public class WeatherTypeDto {
 
     private Integer weatherTypeId;
     private String weatherTypeName;
-    private List<WeatherOriginNoTypeDto> weatherOriginNoTypeDtos;
+    private List<WeatherDto> weatherDtos;
 
 }

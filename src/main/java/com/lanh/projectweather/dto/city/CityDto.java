@@ -1,7 +1,7 @@
 package com.lanh.projectweather.dto.city;
 
 
-import com.lanh.projectweather.dto.weather.WeatherOriginNoCityDto;
+import com.lanh.projectweather.dto.weather.WeatherDto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -12,9 +12,8 @@ import java.util.List;
 @ToString
 public class CityDto {
     private Integer cityId;
-
     private String cityName;
-    private List<WeatherOriginNoCityDto> weatherOriginNoCityDtos;
+    private List<WeatherDto> weatherDtos;
 
 
 }

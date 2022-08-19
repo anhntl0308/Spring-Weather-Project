@@ -10,11 +10,11 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface WeatherMapper {
-    @Mapping(source = "weatherType", target = "weatherTypeOriginDto")
-    @Mapping(source = "city", target = "cityOriginDto")
+    @Mapping(source = "weatherType", target = "weatherTypeDto")
+    @Mapping(source = "city", target = "cityDto")
     WeatherDto weatherToWeatherDto(Weather weather);
-    @Mapping(source = "weatherTypeOriginDto", target = "weatherType")
-    @Mapping(source = "cityOriginDto", target = "city")
+    @Mapping(source = "weatherTypeDto", target = "weatherType")
+    @Mapping(source = "cityDto", target = "city")
     Weather weatherDtoToWeather(WeatherDto weatherDto);
 
     List<WeatherDto> weatherToListWeatherDto(List<Weather> weathers);

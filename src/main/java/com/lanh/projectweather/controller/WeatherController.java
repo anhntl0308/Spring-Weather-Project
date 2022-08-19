@@ -49,7 +49,7 @@ public class WeatherController {
     }
 
     @GetMapping("")
-    public CommonResponse<WeatherDto> listWeather(@PageableDefault(value = 2, page = 0) Pageable pageable,
+    public CommonResponse<WeatherDto> listWeather(@PageableDefault(value = 3, page = 0) Pageable pageable,
                                                   @RequestParam(value = "city", required = false) Integer city,
                                                   @RequestParam(value = "type", required = false) Integer type) {
         Page<Weather> results = weatherService.findWeatherByCityOrWeatherType(city, type, pageable);
@@ -76,7 +76,6 @@ public class WeatherController {
 
     @PostMapping("")
     public ResponseEntity<WeatherDto> createCity(@RequestBody WeatherDto weatherDto) {
-        weatherService.checkValid(weatherDto);
         Weather weather = weatherMapper.weatherDtoToWeather(weatherDto);
          Weather weather1 = weatherService.save(weather);
         WeatherDto weatherDto1 = weatherMapper.weatherToWeatherDto(weatherService.getById(weather1.getWeatherId()));

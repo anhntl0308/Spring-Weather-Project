@@ -42,6 +42,7 @@ public class CityServiceImpl implements CityService {
 
     @Override
     public void deleteById(Integer id) {
+        City city = cityRepository.findById(id).orElseThrow(() -> new NotFoundException("City khong ton tai"));
         cityRepository.deleteById(id);
     }
 
