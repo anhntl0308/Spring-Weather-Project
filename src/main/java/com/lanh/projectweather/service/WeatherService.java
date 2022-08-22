@@ -19,4 +19,6 @@ public interface WeatherService {
      Page<Weather> findWeatherByCityOrWeatherType(Integer city, Integer type, Pageable pageable);
 
     void checkValid(WeatherDto weatherDto);
+
+    List<Weather> getByWeatherTypeId(Integer id);
 }

@@ -17,8 +17,11 @@ public interface CityMapper {
     CityDto cityToCityDto(City city);
 
     List<CityDto> cityToListCityDto(List<City> cities);
-    @Mapping(source = "weatherType", target = "weatherTypeDto")
+
+
+    @Mapping(source = "weatherStatus", target = "weatherTypes")
     WeatherDto weatherToWeatherDto(Weather weather);
+
 
 
 }

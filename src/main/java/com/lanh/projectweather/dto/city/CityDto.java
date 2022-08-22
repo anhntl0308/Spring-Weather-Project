@@ -14,6 +14,4 @@ public class CityDto {
     private Integer cityId;
     private String cityName;
     private List<WeatherDto> weatherDtos;
-
-
 }

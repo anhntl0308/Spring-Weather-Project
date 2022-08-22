@@ -1,5 +1,6 @@
 package com.lanh.projectweather.entity;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import com.fasterxml.jackson.annotation.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -12,6 +13,7 @@ import java.util.List;
 @Setter
 @ToString
 @Table(name="cities")
+
 public class City {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,8 +23,7 @@ public class City {
     @Column(name="city_name",columnDefinition="nvarchar(100) not null")
     private String cityName;
 
-    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @OneToMany(mappedBy = "city", fetch = FetchType.LAZY)
     private List<Weather> weathers;
 
 

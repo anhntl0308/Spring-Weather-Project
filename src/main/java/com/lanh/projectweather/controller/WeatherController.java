@@ -1,17 +1,13 @@
 package com.lanh.projectweather.controller;
 
 import com.lanh.projectweather.dto.weather.WeatherDto;
-import com.lanh.projectweather.entity.City;
 import com.lanh.projectweather.entity.Weather;
 import com.lanh.projectweather.entity.WeatherType;
-import com.lanh.projectweather.exception.NotFoundException;
 import com.lanh.projectweather.mapper.CityMapper;
 import com.lanh.projectweather.mapper.WeatherMapper;
 import com.lanh.projectweather.model.CommonResponse;
-import com.lanh.projectweather.repository.CityRepository;
-import com.lanh.projectweather.repository.WeatherRepository;
-import com.lanh.projectweather.repository.WeatherTypeRepository;
 import com.lanh.projectweather.service.WeatherService;
+import com.lanh.projectweather.service.WeatherTypeService;
 import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -29,19 +26,15 @@ import java.util.stream.IntStream;
 @RestController
 @RequestMapping("api/v1/weather")
 public class WeatherController {
-
     @Autowired
     CityMapper cityMapper;
     @Autowired
     WeatherMapper weatherMapper;
     @Autowired
     public WeatherService weatherService;
+
     @Autowired
-    public WeatherRepository weatherRepository;
-    @Autowired
-    public WeatherTypeRepository weatherTypeRepository;
-    @Autowired
-    public CityRepository cityRepository;
+    public WeatherTypeService weatherTypeService;
 
     @GetMapping("/")
     public ResponseEntity<List<WeatherDto>> listWeather() {
@@ -61,12 +54,11 @@ public class WeatherController {
         return commonResponse;
     }
 
-
     @GetMapping("/{id}")
     public ResponseEntity<WeatherDto> getWeather(@PathVariable("id") @NotNull Integer id) {
+        System.out.println();
         return ResponseEntity.ok(weatherMapper.weatherToWeatherDto(weatherService.getById(id)));
     }
-
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteWeather(@PathVariable("id") @NotNull Integer id) {
@@ -88,5 +80,18 @@ public class WeatherController {
         }
         weatherService.save(weatherMapper.weatherDtoToWeather(weatherDto));
         return ResponseEntity.status(HttpStatus.CREATED).body(weatherDto);
+    }
+
+    @PutMapping("/{weatherId}/weatherType/{weatherTypeId}")
+    Weather assignTeacherToSubject(
+            @PathVariable Integer weatherId,
+            @PathVariable Integer weatherTypeId
+    ) {
+        Weather weather = weatherService.getById(weatherId);
+        WeatherType weatherType = weatherTypeService.getById(weatherTypeId);
+        List<WeatherType> list = weather.getWeatherStatus();
+        list.add(weatherType);
+        weather.setWeatherStatus(list);
+        return weatherService.save(weather);
     }
 }

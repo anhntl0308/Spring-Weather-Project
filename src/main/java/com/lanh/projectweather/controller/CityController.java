@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @RestController
-@RequestMapping("api/v1")
+@RequestMapping("api/v1/city")
 public class CityController {
     @Autowired
     CityMapper cityMapper;
@@ -31,12 +31,12 @@ public class CityController {
     @Autowired
     private CityService cityService;
 
-    @GetMapping("/city/list")
+    @GetMapping("/list")
     public ResponseEntity<List<CityDto>> listCity() {
         return ResponseEntity.ok(cityMapper.cityToListCityDto(cityService.list()));
     }
 
-    @GetMapping("/city/search")
+    @GetMapping("")
     public CommonResponse<CityDto> listCity(@PageableDefault(value = 3, page = 0) Pageable pageable,
                                             @RequestParam(value = "search", required = false) String search) {
         Page<City> results = cityService.findByNameContaining(search, pageable);
@@ -47,24 +47,24 @@ public class CityController {
         return commonResponse;
     }
 
-    @GetMapping("/city/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<CityDto> getCity(@PathVariable("id") @NotNull Integer id) {
         return ResponseEntity.ok(cityMapper.cityToCityDto(cityService.getById(id)));
     }
 
-    @DeleteMapping("/city/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteCity(@PathVariable("id") @NotNull Integer id) {
         cityService.deleteById(id);
         return ResponseEntity.status(HttpStatus.CREATED).body("Success");
     }
 
-    @PostMapping("/city")
+    @PostMapping("")
     public ResponseEntity<CityDto> createCity(@RequestBody CityDto cityDto) {
         City city = cityService.save(cityMapper.cityDtoToCity(cityDto));
         return ResponseEntity.status(HttpStatus.CREATED).body(cityMapper.cityToCityDto(city));
     }
 
-    @PutMapping("/city/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<CityDto> updateCityNoID(@PathVariable("id") Integer id, @RequestBody @Valid CityDto cityDto) {
         City city = cityService.getById(id);
         cityDto.setCityId(id);

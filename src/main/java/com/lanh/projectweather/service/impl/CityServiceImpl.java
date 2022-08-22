@@ -1,6 +1,8 @@
 package com.lanh.projectweather.service.impl;
 
+import com.lanh.projectweather.dto.city.CityDto;
 import com.lanh.projectweather.entity.City;
+import com.lanh.projectweather.entity.Weather;
 import com.lanh.projectweather.exception.NotFoundException;
 import com.lanh.projectweather.repository.CityRepository;
 import com.lanh.projectweather.service.CityService;
@@ -11,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -48,7 +51,15 @@ public class CityServiceImpl implements CityService {
 
     @Override
     public Page<City> findByNameContaining(String name, Pageable pageable) {
-        return null;
+
+        Page<City> results = null;
+        if (name == null ) {
+            results = cityRepository.findAll(pageable);
+        } else if (name!=null) {
+            results = cityRepository.findByCityNameContaining(name, pageable);
+        }
+        return results;
+
     }
 
     @Override
@@ -65,4 +76,6 @@ public class CityServiceImpl implements CityService {
         Page<City> results = cityRepository.findByCityNameContaining(name, pageable);
         return results;
     }
+
+
 }

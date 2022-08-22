@@ -1,7 +1,6 @@
 package com.lanh.projectweather.service.impl;
 
 import com.lanh.projectweather.dto.weather.WeatherDto;
-import com.lanh.projectweather.entity.City;
 import com.lanh.projectweather.entity.Weather;
 import com.lanh.projectweather.exception.NotFoundException;
 import com.lanh.projectweather.repository.CityRepository;
@@ -10,12 +9,11 @@ import com.lanh.projectweather.repository.WeatherTypeRepository;
 import com.lanh.projectweather.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class WeatherServiceImpl implements WeatherService {
@@ -23,7 +21,6 @@ public class WeatherServiceImpl implements WeatherService {
     WeatherRepository weatherRepository;
     @Autowired
     CityRepository cityRepository;
-
     @Autowired
     WeatherTypeRepository weatherTypeRepository;
     @Override
@@ -42,6 +39,11 @@ public class WeatherServiceImpl implements WeatherService {
     }
 
     @Override
+    public List<Weather> getByWeatherTypeId(Integer id) {
+        return weatherRepository.findAll().stream().filter(i->i.equals(id)).collect(Collectors.toList());
+    }
+
+    @Override
     public List<Weather> findAll() {
         return weatherRepository.findAll();
     }
@@ -55,8 +57,6 @@ public class WeatherServiceImpl implements WeatherService {
     public void deleteById(Integer id) {
         weatherRepository.deleteById(id);
     }
-
-
 
     @Override
     public Page<Weather> findWeatherByCityOrWeatherType(Integer city, Integer type, Pageable pageable) {
@@ -78,4 +78,6 @@ public class WeatherServiceImpl implements WeatherService {
 //        weatherTypeRepository.findById(weatherDto.getWeatherTypeOriginDto().getWeatherTypeId())
 //                .orElseThrow(() -> new NotFoundException("Not Found Weather Type"));
     }
+
+
 }
